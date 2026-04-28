@@ -230,7 +230,7 @@ export function Footer() {
               </Link>
               <div className="h-12 w-px bg-white/10" />
               <Link
-                href="https://www.tiktok.com/@tailoredthreads"
+                href="https://www.tiktok.com/@customthreads"
                 target="_blank"
                 rel="noreferrer"
                 className="flex h-12 w-14 items-center justify-center text-white/80 transition-colors hover:bg-white/10 hover:text-white"
@@ -301,7 +301,7 @@ export function Footer() {
             <div className="flex items-center gap-3 text-sm text-white/70">
               <span>©</span>
               <span className="h-1 w-1 rounded-full bg-white/40" />
-              <span>Tailored Threads</span>
+              <span>Custom Threads</span>
             </div>
 
             {/* Payments */}
