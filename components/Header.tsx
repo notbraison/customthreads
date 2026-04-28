@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, X, ShoppingCart, User, Search, ChevronDown, Mail, Instagram, Smartphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
@@ -10,14 +11,14 @@ import { useCart } from '@/hooks/useCart';
 export function Header() {
   const { count } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const navLinks = [
-    { label: 'Shop All', href: '#' },
-    { label: 'Sweaters', href: '#' },
-    { label: 'Hoodies', href: '#' },
-    { label: 'Jackets', href: '#' },
-    { label: 'About', href: '#' },
-    { label: 'Contact', href: '#' },
+    { label: 'Home', href: '/' },
+    { label: 'Shop All', href: '/products' },
+    { label: 'Sweats', href: '/sweats' },
+    { label: 'Hoodies', href: '/hoodies' },
+    { label: 'T-Shirts', href: '/t-shirts' },
   ];
 
   return (
@@ -25,7 +26,7 @@ export function Header() {
       {/* Announcement Bar */}
       <div className="bg-white border-b border-gray-200 py-3 px-4 md:px-6 lg:px-8">
         <p className="text-center text-sm text-gray-600">
-          Free shipping on orders over $100 • Limited time offer
+          Free shipping on orders over KSH 5,000 • Limited time offer
         </p>
       </div>
 
@@ -34,8 +35,8 @@ export function Header() {
         <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="/" className="font-serif text-2xl font-bold text-white hover:opacity-80 transition-opacity">
-              Tailored Threads
+            <Link href="/" className="text-2xl font-bold text-white hover:opacity-80 transition-opacity">
+              Custom Threads
             </Link>
 
             {/* Desktop Navigation */}
@@ -44,10 +45,16 @@ export function Header() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="text-sm text-white relative group transition-colors hover:text-gray-300"
+                  className={`text-sm text-white relative group transition-colors hover:text-gray-300 ${
+                    pathname === link.href ? 'text-gray-200' : ''
+                  }`}
                 >
                   {link.label}
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300" />
+                  <span
+                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-white transition-all duration-300 ${
+                      pathname === link.href ? 'w-full' : 'w-0 group-hover:w-full'
+                    }`}
+                  />
                 </Link>
               ))}
             </div>
@@ -88,14 +95,18 @@ export function Header() {
                 </SheetTrigger>
                 <SheetContent side="right" className="w-full sm:w-80 bg-white">
                   <div className="flex flex-col gap-6 mt-8">
-                    <h2 className="font-serif text-2xl font-bold text-black">Menu</h2>
+                    <h2 className="text-2xl font-normal text-black">Menu</h2>
                     
                     <div className="flex flex-col gap-4">
                       {navLinks.map((link) => (
                         <SheetClose key={link.label} asChild>
                           <Link
                             href={link.href}
-                            className="text-lg text-black hover:text-gray-600 transition-colors"
+                            className={`text-lg transition-colors ${
+                              pathname === link.href
+                                ? 'text-black font-semibold'
+                                : 'text-black hover:text-gray-600'
+                            }`}
                           >
                             {link.label}
                           </Link>

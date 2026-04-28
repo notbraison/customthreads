@@ -6,6 +6,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@
 import { Button } from '@/components/ui/button';
 import { X, ShoppingCart } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
+import { useCurrency } from '@/hooks/useCurrency';
+import { convertFromKes, formatMoney } from '@/lib/currency';
 
 interface QuickViewModalProps {
   product: Product;
@@ -15,13 +17,18 @@ interface QuickViewModalProps {
 
 export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps) {
   const { addToCart } = useCart();
+  const { currency } = useCurrency();
 
   const handleAddToCart = () => {
     addToCart();
     onClose();
   };
 
-  const discount = product.discount ? Math.round(product.discount) : 0;
+  const displaySale = product.salePrice ? convertFromKes(product.salePrice, currency) : null;
+  const displayOriginal = convertFromKes(product.originalPrice, currency);
+  const displaySavings = product.salePrice
+    ? convertFromKes(product.originalPrice - product.salePrice, currency)
+    : null;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -41,7 +48,7 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
             />
             {product.salePrice && (
               <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
-                -{discount}%
+                SAVE {formatMoney(displaySavings ?? 0, currency)}
               </div>
             )}
           </div>
@@ -49,7 +56,7 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
           {/* Product Details */}
           <div className="flex flex-col gap-4 justify-between">
             <div>
-              <h2 className="font-serif text-2xl md:text-3xl font-bold text-black mb-4">
+              <h2 className="text-2xl md:text-3xl font-normal text-black mb-4">
                 {product.name}
               </h2>
 
@@ -58,15 +65,15 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
                 {product.salePrice ? (
                   <>
                     <span className="text-2xl font-bold text-red-600">
-                      ${product.salePrice.toFixed(2)}
+                      {formatMoney(displaySale ?? 0, currency)}
                     </span>
                     <span className="text-lg text-gray-500 line-through">
-                      ${product.originalPrice.toFixed(2)}
+                      {formatMoney(displayOriginal, currency)}
                     </span>
                   </>
                 ) : (
                   <span className="text-2xl font-bold text-black">
-                    ${product.originalPrice.toFixed(2)}
+                    {formatMoney(displayOriginal, currency)}
                   </span>
                 )}
               </div>
@@ -87,7 +94,7 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
                   <li>✓ Premium quality embroidery</li>
                   <li>✓ Comfortable fit</li>
                   <li>✓ Available in multiple colors</li>
-                  <li>✓ Free shipping on orders over $100</li>
+                  <li>✓ Free shipping on orders over KSH 5,000</li>
                 </ul>
               </div>
             </div>

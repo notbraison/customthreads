@@ -2,9 +2,12 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Product } from '@/lib/types';
-import { Eye } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import { QuickViewModal } from './QuickViewModal';
+import { useCurrency } from '@/hooks/useCurrency';
+import { convertFromKes, formatMoney } from '@/lib/currency';
 
 interface ProductCardProps {
   product: Product;
@@ -12,74 +15,87 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
+  const { currency } = useCurrency();
 
-  const discount = product.discount ? Math.round(product.discount) : 0;
+  const displaySale = product.salePrice ? convertFromKes(product.salePrice, currency) : null;
+  const displayOriginal = convertFromKes(product.originalPrice, currency);
+  const displaySavings = product.salePrice
+    ? convertFromKes(product.originalPrice - product.salePrice, currency)
+    : null;
 
   return (
     <>
       <div className="flex flex-col gap-4 group">
-        {/* Image Container */}
-        <div
-          className="relative w-full aspect-square bg-gray-100 overflow-hidden rounded-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
-          />
+        <Link href={`/products/${product.id}`} className="block w-full">
+          {/* Image Container */}
+          <div className="relative w-full aspect-square bg-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl cursor-pointer">
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-300"
+            />
 
-          {/* Sale Badge */}
-          {product.salePrice && (
-            <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
-              -{discount}%
-            </div>
-          )}
+            {/* Sale Badge */}
+            {product.salePrice && (
+              <div className="absolute top-3 left-3 bg-red-600 text-white px-2 py-1 text-[11px] font-bold tracking-wide">
+                SAVE {formatMoney(displaySavings ?? 0, currency)}
+              </div>
+            )}
 
-          {/* Quick View Button */}
-          <button
-            onClick={() => setIsQuickViewOpen(true)}
-            className="absolute inset-0 bg-black/50 flex items-center justify-center gap-2 text-white font-semibold rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300"
-          >
-            <Eye size={20} />
-            Quick View
-          </button>
-        </div>
+            {/* Mobile cart button (matches screenshot) */}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsQuickViewOpen(true);
+              }}
+              className="absolute bottom-3 right-3 flex h-10 w-10 items-center justify-center border border-gray-200 bg-white text-black shadow-sm sm:hidden"
+              aria-label="Quick view"
+            >
+              <ShoppingCart className="h-5 w-5" />
+            </button>
+
+            {/* Desktop quick view overlay */}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsQuickViewOpen(true);
+              }}
+              className="absolute inset-0 hidden bg-black/50 items-center justify-center gap-2 text-white font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 sm:flex"
+            >
+              Quick View
+            </button>
+          </div>
+        </Link>
 
         {/* Product Info */}
-        <div className="flex flex-col gap-2">
-          <h3 className="text-base md:text-lg font-semibold text-black group-hover:text-gray-700 transition-colors">
-            {product.name}
-          </h3>
+        <Link href={`/products/${product.id}`} className="block">
+          <div className="flex flex-col gap-2 sm:gap-2">
+            <h3 className="text-base md:text-lg font-medium text-black transition-colors text-center sm:text-left">
+              {product.name}
+            </h3>
 
-          {/* Price */}
-          <div className="flex items-baseline gap-2">
-            {product.salePrice ? (
-              <>
-                <span className="text-lg font-bold text-red-600">
-                  ${product.salePrice.toFixed(2)}
+            {/* Price */}
+            <div className="flex flex-col items-center gap-1 sm:flex-row sm:items-baseline sm:gap-2">
+              {product.salePrice ? (
+                <>
+                  <span className="text-base font-medium text-red-600">
+                    From {formatMoney(displaySale ?? 0, currency)}
+                  </span>
+                  <span className="text-sm text-gray-500 line-through sm:mt-0">
+                    {formatMoney(displayOriginal, currency)}
+                  </span>
+                </>
+              ) : (
+                <span className="text-base font-medium text-red-600 sm:text-black">
+                  From {formatMoney(displayOriginal, currency)}
                 </span>
-                <span className="text-sm text-gray-500 line-through">
-                  ${product.originalPrice.toFixed(2)}
-                </span>
-              </>
-            ) : (
-              <span className="text-lg font-bold text-black">
-                ${product.originalPrice.toFixed(2)}
-              </span>
-            )}
+              )}
+            </div>
           </div>
-
-          {/* Description */}
-          {product.description && (
-            <p className="text-sm text-gray-600 line-clamp-2">
-              {product.description}
-            </p>
-          )}
-        </div>
+        </Link>
       </div>
 
       {/* Quick View Modal */}

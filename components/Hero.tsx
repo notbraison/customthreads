@@ -10,7 +10,7 @@ export function Hero() {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <Image
-          src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=1920&h=1080&fit=crop"
+          src="/invincibleheaderimg.webp"
           alt="Hero background"
           fill
           className="object-cover"
@@ -21,12 +21,12 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 md:px-8 max-w-3xl mx-auto flex flex-col items-center gap-8">
-        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white text-balance">
-          WELCOME TO TAILORED THREADS
+      <div className="relative z-10 px-4 md:px-8 max-w-2xl flex flex-col items-start gap-6 pt-32">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-normal text-white text-balance">
+          WELCOME TO CUSTOM THREADS
         </h1>
         
-        <p className="text-lg md:text-xl text-gray-100 text-balance max-w-2xl">
+        <p className="text-lg md:text-xl text-gray-100 text-balance max-w-xl">
           Discover our premium collection of custom embroidered apparel, crafted with precision and style
         </p>
 
