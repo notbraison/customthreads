@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
@@ -30,12 +31,15 @@ export function Hero() {
           Discover our premium collection of custom embroidered apparel, crafted with precision and style
         </p>
 
-        <Button 
+        <Button
+          asChild
           size="lg"
           className="mt-4 bg-black text-white hover:bg-gray-800 px-8 py-6 text-lg font-semibold rounded-none transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
         >
-          SHOP ALL
-          <ArrowRight className="ml-2" size={24} />
+          <Link href="/products" aria-label="Shop all products">
+            SHOP ALL
+            <ArrowRight className="ml-2" size={24} />
+          </Link>
         </Button>
       </div>
     </section>

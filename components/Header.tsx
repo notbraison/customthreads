@@ -22,10 +22,10 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white">
+    <header className="sticky top-0 z-50 bg-background text-foreground">
       {/* Announcement Bar */}
-      <div className="bg-white border-b border-gray-200 py-3 px-4 md:px-6 lg:px-8">
-        <p className="text-center text-sm text-gray-600">
+      <div className="bg-background border-b border-border py-3 px-4 md:px-6 lg:px-8">
+        <p className="text-center text-sm text-muted-foreground">
           Free shipping on orders over KSH 5,000 • Limited time offer
         </p>
       </div>
@@ -93,9 +93,9 @@ export function Header() {
                     <Menu size={24} />
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-full sm:w-80 bg-white">
+                <SheetContent side="right" className="w-full sm:w-80 bg-background">
                   <div className="flex flex-col gap-6 mt-8">
-                    <h2 className="text-2xl font-normal text-black">Menu</h2>
+                    <h2 className="text-2xl font-normal text-foreground">Menu</h2>
                     
                     <div className="flex flex-col gap-4">
                       {navLinks.map((link) => (
@@ -104,8 +104,8 @@ export function Header() {
                             href={link.href}
                             className={`text-lg transition-colors ${
                               pathname === link.href
-                                ? 'text-black font-semibold'
-                                : 'text-black hover:text-gray-600'
+                                ? 'text-foreground font-semibold'
+                                : 'text-foreground hover:text-muted-foreground'
                             }`}
                           >
                             {link.label}
@@ -115,15 +115,15 @@ export function Header() {
                     </div>
 
                     <div className="border-t pt-6 flex flex-col gap-4">
-                      <button className="flex items-center gap-2 text-black hover:text-gray-600 transition-colors">
+                      <button className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors">
                         <Search size={20} />
                         <span>Search</span>
                       </button>
-                      <button className="flex items-center gap-2 text-black hover:text-gray-600 transition-colors">
+                      <button className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors">
                         <User size={20} />
                         <span>Account</span>
                       </button>
-                      <button className="flex items-center gap-2 text-black hover:text-gray-600 transition-colors relative">
+                      <button className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors relative">
                         <ShoppingCart size={20} />
                         <span>Cart</span>
                         {count > 0 && (
@@ -135,7 +135,7 @@ export function Header() {
                     </div>
 
                     <div className="border-t pt-6">
-                      <div className="flex items-center gap-2 text-black cursor-pointer hover:text-gray-600 transition-colors">
+                      <div className="flex items-center gap-2 text-foreground cursor-pointer hover:text-muted-foreground transition-colors">
                         <Smartphone size={20} />
                         <span className="text-sm">United States (USD)</span>
                         <ChevronDown size={16} className="ml-auto" />

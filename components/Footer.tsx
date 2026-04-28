@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { ArrowRight, ChevronDown, Facebook, Instagram } from 'lucide-react';
 import { useCurrency } from '@/hooks/useCurrency';
 import type { CurrencyCode } from '@/lib/currency';
+import { DayNightModeToggle } from '@/components/DayNightModeToggle';
 
 function TikTokIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -255,53 +256,56 @@ export function Footer() {
         {/* Divider */}
         <div className="border-t border-white/10 pt-10">
           <div className="flex flex-col items-start gap-8 md:flex-row md:items-center md:justify-between">
-            {/* Currency selector */}
-            <div className="relative">
-              <button
-              type="button"
-              onClick={() => setCurrencyOpen((v) => !v)}
-              className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/90 shadow-[0_0_30px_rgba(255,255,255,0.08)] transition-colors hover:bg-white/10"
-            >
-              <span className="text-base leading-none">
-                {currency === 'USD' ? '🇺🇸' : '🇰🇪'}
-              </span>
-              <span className="font-medium">{currencyLabel}</span>
-              <ChevronDown className="h-4 w-4 text-white/60" />
-            </button>
-              {currencyOpen && (
-                <div
-                  className="absolute left-0 top-full z-20 mt-2 w-64 overflow-hidden rounded-xl border border-white/10 bg-black/95 shadow-xl backdrop-blur"
-                  role="menu"
+            {/* Currency + Theme */}
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              {/* Currency selector */}
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setCurrencyOpen((v) => !v)}
+                  className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/90 shadow-[0_0_30px_rgba(255,255,255,0.08)] transition-colors hover:bg-white/10"
                 >
-                  <button
-                    type="button"
-                    onClick={() => setCurrencyAndClose('KES')}
-                    className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm text-white/90 transition-colors hover:bg-white/10"
-                    role="menuitem"
+                  <span className="text-base leading-none">
+                    {currency === 'USD' ? '🇺🇸' : '🇰🇪'}
+                  </span>
+                  <span className="font-medium">{currencyLabel}</span>
+                  <ChevronDown className="h-4 w-4 text-white/60" />
+                </button>
+                {currencyOpen && (
+                  <div
+                    className="absolute left-0 top-full z-20 mt-2 w-64 overflow-hidden rounded-xl border border-white/10 bg-black/95 shadow-xl backdrop-blur"
+                    role="menu"
                   >
-                    <span className="text-base leading-none">🇰🇪</span>
-                    <span className="flex-1">Kenya (KES KSh)</span>
-                    {currency === 'KES' && <span className="text-white/50">✓</span>}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setCurrencyAndClose('USD')}
-                    className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm text-white/90 transition-colors hover:bg-white/10"
-                    role="menuitem"
-                  >
-                    <span className="text-base leading-none">🇺🇸</span>
-                    <span className="flex-1">United States (USD $)</span>
-                    {currency === 'USD' && <span className="text-white/50">✓</span>}
-                  </button>
-                </div>
-              )}
+                    <button
+                      type="button"
+                      onClick={() => setCurrencyAndClose('KES')}
+                      className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm text-white/90 transition-colors hover:bg-white/10"
+                      role="menuitem"
+                    >
+                      <span className="text-base leading-none">🇰🇪</span>
+                      <span className="flex-1">Kenya (KES KSh)</span>
+                      {currency === 'KES' && <span className="text-white/50">✓</span>}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setCurrencyAndClose('USD')}
+                      className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm text-white/90 transition-colors hover:bg-white/10"
+                      role="menuitem"
+                    >
+                      <span className="text-base leading-none">🇺🇸</span>
+                      <span className="flex-1">United States (USD $)</span>
+                      {currency === 'USD' && <span className="text-white/50">✓</span>}
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              <DayNightModeToggle className="border-white/10 text-white/90 [&_[data-slot=toggle-group-item]]:gap-1.5" />
             </div>
 
             {/* Copyright */}
             <div className="flex items-center gap-3 text-sm text-white/70">
-              <span>©</span>
-              <span className="h-1 w-1 rounded-full bg-white/40" />
-              <span>Custom Threads</span>
+              <span>© Custom Threads 2026</span>
             </div>
 
             {/* Payments */}

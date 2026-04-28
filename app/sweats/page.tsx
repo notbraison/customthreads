@@ -8,32 +8,32 @@ export default function SweatsPage() {
   const products = mockProducts.filter((p) => p.name.toLowerCase().includes('sweater'));
 
   return (
-    <main className="w-full bg-white">
+    <main className="w-full bg-background text-foreground">
       <Header />
 
       <div className="mx-auto w-full max-w-none px-6 py-8 lg:px-12">
-        <div className="text-sm text-gray-500">
-          <Link href="/" className="hover:text-black">
+        <div className="text-sm text-muted-foreground">
+          <Link href="/" className="hover:text-foreground">
             Home
           </Link>{' '}
           / Sweats
         </div>
 
-        <h1 className="mt-10 text-center text-4xl font-normal tracking-wide text-black md:text-5xl lg:text-6xl">
+        <h1 className="mt-10 text-center text-4xl font-normal tracking-wide text-foreground md:text-5xl lg:text-6xl">
           SWEATS
         </h1>
 
         <div className="mt-14 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr] lg:gap-14">
           {/* Filters */}
           <aside className="hidden lg:block">
-            <div className="text-sm font-semibold tracking-wide text-black">FILTERS</div>
-            <div className="mt-6 border-t border-gray-200 pt-6">
+            <div className="text-sm font-semibold tracking-wide text-foreground">FILTERS</div>
+            <div className="mt-6 border-t border-border pt-6">
               <button
                 type="button"
-                className="flex w-full items-center justify-between text-sm font-semibold text-black"
+                className="flex w-full items-center justify-between text-sm font-semibold text-foreground"
               >
                 <span>Availability</span>
-                <span className="text-gray-500">⌄</span>
+                <span className="text-muted-foreground">⌄</span>
               </button>
             </div>
           </aside>
@@ -41,14 +41,14 @@ export default function SweatsPage() {
           {/* Products */}
           <section>
             <div className="flex items-center justify-between">
-              <div className="text-sm font-semibold text-black">
+              <div className="text-sm font-semibold text-foreground">
                 {products.length} products
               </div>
               <button
                 type="button"
-                className="flex items-center gap-2 text-sm text-black"
+                className="flex items-center gap-2 text-sm text-foreground"
               >
-                Sort by Featured <span className="text-gray-500">⌄</span>
+                Sort by Featured <span className="text-muted-foreground">⌄</span>
               </button>
             </div>
 

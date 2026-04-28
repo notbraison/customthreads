@@ -6,7 +6,7 @@ import { mockProducts } from '@/lib/mock-data';
 
 export default function Home() {
   return (
-    <main className="w-full bg-white">
+    <main className="w-full bg-background text-foreground">
       <Header />
       <Hero />
       <ProductGrid products={mockProducts} />

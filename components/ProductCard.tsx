@@ -28,7 +28,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <div className="flex flex-col gap-4 group">
         <Link href={`/products/${product.id}`} className="block w-full">
           {/* Image Container */}
-          <div className="relative w-full aspect-square bg-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl cursor-pointer">
+          <div className="relative w-full aspect-square bg-muted overflow-hidden transition-all duration-300 hover:shadow-xl cursor-pointer">
             <Image
               src={product.image}
               alt={product.name}
@@ -50,7 +50,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 e.stopPropagation();
                 setIsQuickViewOpen(true);
               }}
-              className="absolute bottom-3 right-3 flex h-10 w-10 items-center justify-center border border-gray-200 bg-white text-black shadow-sm sm:hidden"
+              className="absolute bottom-3 right-3 flex h-10 w-10 items-center justify-center border border-border bg-background text-foreground shadow-sm sm:hidden"
               aria-label="Quick view"
             >
               <ShoppingCart className="h-5 w-5" />
@@ -73,7 +73,7 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* Product Info */}
         <Link href={`/products/${product.id}`} className="block">
           <div className="flex flex-col gap-2 sm:gap-2">
-            <h3 className="text-base md:text-lg font-medium text-black transition-colors text-center sm:text-left">
+            <h3 className="text-base md:text-lg font-medium text-foreground transition-colors text-center sm:text-left">
               {product.name}
             </h3>
 
@@ -84,12 +84,12 @@ export function ProductCard({ product }: ProductCardProps) {
                   <span className="text-base font-medium text-red-600">
                     From {formatMoney(displaySale ?? 0, currency)}
                   </span>
-                  <span className="text-sm text-gray-500 line-through sm:mt-0">
+                  <span className="text-sm text-muted-foreground line-through sm:mt-0">
                     {formatMoney(displayOriginal, currency)}
                   </span>
                 </>
               ) : (
-                <span className="text-base font-medium text-red-600 sm:text-black">
+                <span className="text-base font-medium text-red-600 sm:text-foreground">
                   From {formatMoney(displayOriginal, currency)}
                 </span>
               )}

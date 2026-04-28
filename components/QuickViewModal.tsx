@@ -39,7 +39,7 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
           {/* Image */}
-          <div className="relative w-full aspect-square bg-gray-100 rounded-lg overflow-hidden">
+          <div className="relative w-full aspect-square bg-muted rounded-lg overflow-hidden">
             <Image
               src={product.image}
               alt={product.name}
@@ -56,7 +56,7 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
           {/* Product Details */}
           <div className="flex flex-col gap-4 justify-between">
             <div>
-              <h2 className="text-2xl md:text-3xl font-normal text-black mb-4">
+              <h2 className="text-2xl md:text-3xl font-normal text-foreground mb-4">
                 {product.name}
               </h2>
 
@@ -67,12 +67,12 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
                     <span className="text-2xl font-bold text-red-600">
                       {formatMoney(displaySale ?? 0, currency)}
                     </span>
-                    <span className="text-lg text-gray-500 line-through">
+                    <span className="text-lg text-muted-foreground line-through">
                       {formatMoney(displayOriginal, currency)}
                     </span>
                   </>
                 ) : (
-                  <span className="text-2xl font-bold text-black">
+                  <span className="text-2xl font-bold text-foreground">
                     {formatMoney(displayOriginal, currency)}
                   </span>
                 )}
@@ -80,17 +80,17 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
 
               {/* Description */}
               {product.description && (
-                <p className="text-gray-600 text-base mb-6">
+                <p className="text-muted-foreground text-base mb-6">
                   {product.description}
                 </p>
               )}
 
               {/* Features */}
-              <div className="border-t border-b border-gray-200 py-4 mb-6">
-                <p className="text-sm text-gray-600 mb-3">
-                  <span className="font-semibold text-black">Features:</span>
+              <div className="border-t border-b border-border py-4 mb-6">
+                <p className="text-sm text-muted-foreground mb-3">
+                  <span className="font-semibold text-foreground">Features:</span>
                 </p>
-                <ul className="text-sm text-gray-600 space-y-2">
+                <ul className="text-sm text-muted-foreground space-y-2">
                   <li>✓ Premium quality embroidery</li>
                   <li>✓ Comfortable fit</li>
                   <li>✓ Available in multiple colors</li>
@@ -103,7 +103,7 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
             <div className="flex flex-col gap-3">
               <Button
                 onClick={handleAddToCart}
-                className="w-full bg-black text-white hover:bg-gray-800 py-6 text-base font-semibold rounded-none"
+                className="w-full py-6 text-base font-semibold rounded-none"
               >
                 <ShoppingCart className="mr-2" size={20} />
                 ADD TO CART
@@ -111,7 +111,7 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
               <Button
                 variant="outline"
                 onClick={onClose}
-                className="w-full py-6 text-base font-semibold rounded-none border-gray-300"
+                className="w-full py-6 text-base font-semibold rounded-none"
               >
                 CONTINUE SHOPPING
               </Button>
